@@ -174,7 +174,7 @@ def decode(file):
         original+=encoding_to_char[bin_str[i:j]]
         i = j
 
-    print(original)
+    #print(original)
     # Write out the decoded file.
     try:
         os.remove('decoded.txt')
@@ -186,7 +186,22 @@ def decode(file):
 
 ######### UNIT TESTS #########
 
+def encode_decode_test():
+    print("running encode() and decode() tests...")
+    with open('encode-test.txt', 'w') as f:
+        f.write("abracadabra\n")
+    encode('encode-test.txt')
+    decode('compressed.txt')
+    original = open('encode-test.txt', 'r').read()
+    decoded = open('decoded.txt', 'r').read()
+    assert original == decoded, "TEST FAILED: Expected original file contents to exactly equal decoded file contents after encoding and decoding."
+    os.remove('encode-test.txt')
+    os.remove('decoded.txt')
+    os.remove('compressed.txt')
+
+
 def make_dict_test():
+    print("running make_dict() tests...")
     """Tests the make_dict() function"""
     data = "abracadabra"
     freqs = make_dict(data)
@@ -195,9 +210,29 @@ def make_dict_test():
     assert 'r' in freqs and freqs['r'] == 2, "TEST FAILED: Expected 'r' to have a frequency of 2"
     assert 'c' in freqs and freqs['c'] == 1, "TEST FAILED: Expected 'c' to have a frequency of 2"
 
+def tree_dfs_test():
+    print("running tree_dfs tests...")
+    """Tests the depth-first search tree logic."""
+    root = TreeNode('r', 10)
+    a = TreeNode('a', 4)
+    b = TreeNode('b', 3)
+    root.left = a
+    root.right = b
+    # leaf nodes
+    c = TreeNode('c', 5)
+    d = TreeNode('d', 2)
+    a.left = c
+    b.right = d
+    # c's encoding should be 00 since we branch left and left. d's encoding should be 11 since we branch right and right.
+    tree_dfs(root, "", [])
+    assert c.encoding == "00", "TEST FAILED: Expected leaf node c's encoding to be 00."
+    assert d.encoding == "11", "TEST FAILED: Expected leaf node d's encoding to be 11."
+
 def run_tests():
     """Runs all of the tests."""
     make_dict_test()
+    encode_decode_test()
+    tree_dfs_test()
     print("All tests passed")
     exit(0)
 
