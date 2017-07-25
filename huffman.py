@@ -126,11 +126,11 @@ def encode(file):
 
     # hack to fix in the future - This way of getting the hex form does not preserve leading zeros,
     # leading to occasional inaccuracy in converting back and forth between binary and hex.
-    add_zero = False
+    num_zeros_to_add = 0
     bin_str = bin(int(hex_str, 16))[2:]
-    if bin_str != int_str:
-        add_zero = True
+    while bin_str != int_str:
         bin_str  = '0' + bin_str
+        num_zeros_to_add+=1
 
     # 5. Write out the compressed file. We will need both the string and dictionary to dencode at a later time.
 
@@ -140,7 +140,7 @@ def encode(file):
         pass
 
     with open('compressed.txt', 'wb') as file:
-        pickle.dump((hex_str, char_to_encoding, add_zero), file)
+        pickle.dump((hex_str, char_to_encoding, num_zeros_to_add), file)
 
     # A sanity check to make sure that the mapping and strings were written correctly.
     with open('compressed.txt', 'rb') as file:
@@ -156,11 +156,11 @@ def decode(file):
     """
     # Read the data that we saved when we encoded
     with open(file, 'rb') as f:
-        hex_str, char_to_encoding, add_zero = pickle.load(f)
+        hex_str, char_to_encoding, num_zeros_to_add = pickle.load(f)
 
     # Convert the data so we can begin recreating the original file.
     bin_str = bin(int(hex_str, 16))[2:]
-    if add_zero:
+    for i in range(num_zeros_to_add):
         bin_str = '0' + bin_str
     encoding_to_char = {v : k for k, v in char_to_encoding.items()}
     # iterate through the binary string, looking up keys in the above map and adding the character when we find one.
