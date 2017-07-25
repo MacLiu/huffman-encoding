@@ -12,7 +12,7 @@ A general pattern may be as follows:
 `python3 huffman.py encode data.txt`
 `python3 huffman.py decode compressed.txt`
 `diff data.txt decoded.txt` -> expect no diff.
-
+`ls -l compressed.txt` -> about 2800 bytes, or almost a 50% file size reduction.
 Run tests: `python3 huffman.py test`
 
 If you input a wrong command line arg, a usage string is printed out. 
