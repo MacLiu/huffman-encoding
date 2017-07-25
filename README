@@ -33,3 +33,5 @@ I would also like to examine whether the tree can be built in a more efficient m
 
 # Known Bugs
 I had some issues converting a binary string into hex and back to the same binary string, mostly due to the conversions handling leading zeros differently. I believe that I have implemented a workaround, but it is certainly not pretty nor feasible for an actual solution. If I had more time, I would likely delve more into understanding hex conversions to implement a better conversion function.
+I also assumed that each file being compressed ends with a newline. I believe that this is the usual standard.
+
