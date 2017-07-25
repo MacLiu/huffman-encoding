@@ -6,6 +6,7 @@ from functools import total_ordering
 import pickle
 USAGE_STR = "Usage: python3 huffman.py [test] [encode FILENAME] [decode FILENAME]"
 
+# class that holds data about a particular node in the tree.
 @total_ordering
 class TreeNode(object):
     # each one has a (str, freq) tuple
