@@ -4,7 +4,9 @@ Huffman encoding is a popular lossless compression algorithm. It works by constr
 
 ### Usage
 
-Compress: `python3 huffman.py encode data.txt` writes the compressed file to `compressed.txt`
-Decompress: `python3 huffman.py decode compressed.txt` writes the decoded file to `decoded.txt`
+Compress: `python3 huffman.py encode data.txt` writes the compressed file to `compressed.txt`.
+
+Decompress: `python3 huffman.py decode compressed.txt` writes the decoded file to `decoded.txt`.
+
 `diff decoded.txt data.txt` should not output anything. 
 
